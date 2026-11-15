@@ -1,0 +1,102 @@
+set_prayer_times:
+  name: Set prayer times
+  description: Write all six local wall times to the lamp and synchronize its clock.
+  fields:
+    config_entry_id: &entry
+      name: Quran lamp
+      required: true
+      selector:
+        config_entry:
+          integration: quran_lamp
+    fajr:
+      name: Fajr
+      required: true
+      selector: &time
+        time:
+    sunrise:
+      name: Sunrise
+      required: true
+      selector: *time
+    dhuhr:
+      name: Dhuhr
+      required: true
+      selector: *time
+    asr:
+      name: Asr
+      required: true
+      selector: *time
+    maghrib:
+      name: Maghrib
+      required: true
+      selector: *time
+    isha:
+      name: Isha
+      required: true
+      selector: *time
+    enable_azan:
+      name: Enable azan
+      description: Set the master switch while preserving each prayer’s saved preference. Leave blank to preserve the master switch.
+      selector:
+        boolean:
+preview_azan:
+  name: Preview azan
+  description: Play the ringtone configured for the selected prayer.
+  fields:
+    config_entry_id: *entry
+    prayer:
+      name: Prayer
+      required: true
+      default: fajr
+      selector:
+        select:
+          options: [fajr, sunrise, dhuhr, asr, maghrib, isha]
+stop_azan_preview:
+  name: Stop azan preview
+  fields:
+    config_entry_id: *entry
+get_prayer_times:
+  name: Get prayer times
+  description: Read the lamp's stored times, displayed times, and master azan switch.
+  fields:
+    config_entry_id: *entry
+set_azan_switch:
+  name: Set built-in azan switch
+  description: Enable or disable the lamp's own scheduled alarms.
+  fields:
+    config_entry_id: *entry
+    enabled:
+      name: Enabled
+      required: true
+      selector:
+        boolean:
+play_recitation:
+  name: Play recitation
+  description: Start a surah using the Quran Lamp’s built-in audio.
+  target:
+    entity:
+      integration: quran_lamp
+      domain: media_player
+  fields:
+    surah:
+      name: Surah number
+      required: true
+      selector:
+        number:
+          min: 1
+          max: 114
+          step: 1
+          mode: box
+    reciter:
+      name: Reciter
+      description: Use the name shown in the Reciter dropdown. Leave blank to use the lamp’s current reciter.
+      selector:
+        text:
+    volume:
+      name: Volume
+      description: Leave blank to keep the current volume.
+      selector:
+        number:
+          min: 0
+          max: 100
+          unit_of_measurement: "%"
+          mode: slider
