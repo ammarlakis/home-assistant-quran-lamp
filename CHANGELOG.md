@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.3
+
+- Add HACS and Hassfest validation for shared catalog submission.
+- Standardize integration manifest ordering.
+- No device behavior changes.
+
 ## 0.2.2
 
 - Use neutral prayer synchronization labels and internal names.
