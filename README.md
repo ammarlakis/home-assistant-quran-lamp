@@ -82,6 +82,6 @@ If an update fails, select the previous release in Marketplace and download it
 again, then restart Home Assistant. Keep configuration backups separately: a
 package downgrade restores code, not configuration backups.
 
-Maintainers build `dist/quran_lamp.zip` with `python scripts/package.py`. The ZIP
+Maintainers build `dist/quran_lamp.zip` with `just package` (requires `just` and `zip`). The ZIP
 contains the contents of `custom_components/quran_lamp` at its root. Its manifest
 version must match the release tag without the leading `v`.
