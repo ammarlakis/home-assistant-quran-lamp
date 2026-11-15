@@ -64,6 +64,20 @@ class Session:
             raise HomeAssistantError(f"Quran lamp Bluetooth error: {err}") from err
         await asyncio.sleep(0.1)
 
+    async def wake_quran_mode(self):
+        # Match the app's Power button. Booting takes several seconds and the
+        # command is a toggle, so send it only once after confirming sleep.
+        await self.write(p.frame(p.POWER_TOGGLE))
+        try:
+            async with asyncio.timeout(18):
+                while True:
+                    await asyncio.sleep(0.8)
+                    status = await self.request(p.frame(p.PLAY_STATUS), optional=True)
+                    if status in (b"\x01", b"\x02", b"\x03"):
+                        return
+        except TimeoutError:
+            raise HomeAssistantError("The lamp did not wake its Quran player") from None
+
     async def read_azan_tone(self, slot):
         response = await self.request(p.frame(p.GET_AZAN_TONE, slot))
         if len(response) != 2 or response[0] != slot:

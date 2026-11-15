@@ -140,10 +140,13 @@ class LampCoordinator(DataUpdateCoordinator):
         if len(reciter) != 1 or reciter[0] in (0, 255):
             raise HomeAssistantError("The lamp did not report its reciter")
 
-        if not was_playing:
-            await session.write(p.frame(p.PLAY_PAUSE))
-            await self._wait_for_playback(session, playing=True)
         try:
+            if status == b"\x00":
+                await session.wake_quran_mode()
+                status = await session.request(p.frame(p.PLAY_STATUS))
+            if status not in (b"\x01", b"\x03"):
+                await session.write(p.frame(p.PLAY_PAUSE))
+                await self._wait_for_playback(session, playing=True)
             # This firmware treats translation ID zero as English. Leaving recitation
             # mode and explicitly reselecting the reciter starts Arabic-only playback.
             await session.request(p.frame(p.MP3))

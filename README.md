@@ -42,8 +42,15 @@ a connection is lost. Each configured lamp has its own connection.
 
 The current Bluetooth implementation has been exercised on a physical SQ953
 through a generic Bumble ESPHome proxy, including light acknowledgments,
-play/pause, advancing ayah reports, and proxy restart recovery. Full migration
-validation is ongoing. Other adapter/proxy hardware combinations need testing.
+play/pause, surah/reciter/ayah selection, volume, translation commands, azan
+preview, prayer schedule readback, and master/per-prayer azan controls. Recovery
+was verified after proxy and Home Assistant restarts and integration reload.
+Other adapter/proxy hardware combinations need testing.
+
+The lamp reports its saved translation language independently of Arabic-only
+playback. After an integration reload, the dropdown can show that saved language
+even if playback was Arabic-only. Selecting Off applies the Arabic-only sequence
+again. Light tests confirm command acknowledgments, not physical light readback.
 
 The source is kept locally while validation is completed. It is not yet a
 published HACS repository.

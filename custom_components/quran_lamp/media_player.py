@@ -302,24 +302,9 @@ class QuranPlayer(CoordinatorEntity, MediaPlayerEntity):
         surah = coordinator.reported_surah or coordinator.selected_surah or 1
         return p.surah(surah, coordinator.reported_ayah or 1)
 
-    @staticmethod
-    async def _wake_quran_mode(session):
-        # Match the app's Power button. Booting takes several seconds and the
-        # command is a toggle, so send it only once after confirming sleep.
-        await session.write(p.frame(p.POWER_TOGGLE))
-        try:
-            async with asyncio.timeout(18):
-                while True:
-                    await asyncio.sleep(0.8)
-                    status = await session.request(p.frame(p.PLAY_STATUS), optional=True)
-                    if status in (b"\x01", b"\x02", b"\x03"):
-                        return
-        except TimeoutError:
-            raise HomeAssistantError("The lamp did not wake its Quran player") from None
-
     async def _wake_recitation(self, session, packet, status):
         if status == b"\x00":
-            await self._wake_quran_mode(session)
+            await session.wake_quran_mode()
         await session.write(packet)
         status = await self._recitation_status(session)
         if status not in (b"\x01", b"\x03"):
@@ -332,7 +317,7 @@ class QuranPlayer(CoordinatorEntity, MediaPlayerEntity):
         # the lamp switches audio modes.
         async with self.coordinator.lamp.session() as session:
             if surah and await session.request(p.frame(p.PLAY_STATUS)) == b"\x00":
-                await self._wake_quran_mode(session)
+                await session.wake_quran_mode()
             if reciter is not None:
                 await self._select_reciter(session, reciter)
             if level is not None:
