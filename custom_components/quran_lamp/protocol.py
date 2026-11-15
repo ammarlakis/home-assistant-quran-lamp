@@ -42,17 +42,39 @@ STOP_PREVIEW = 0xA0
 
 
 # The vendor app uses these labels for standard IDs without querying names.
-TRANSLATION_NAMES = dict(zip(
-    (*range(1, 15), *range(16, 27)),
-    (
-        "English", "Urdu", "French", "Bengali", "Dari", "Indonesian",
-        "Malay", "Pashto", "Farsi", "Somali", "Swahili", "Turkish",
-        "Hindi", "Tamil", "Russian", "Uzbek", "Azerbaijani", "Gujarati",
-        "Kazakh", "Spanish", "Bosnian", "Malayalam", "Persian", "German",
-        "Kurdish",
-    ),
-    strict=True,
-))
+TRANSLATION_NAMES = dict(
+    zip(
+        (*range(1, 15), *range(16, 27)),
+        (
+            "English",
+            "Urdu",
+            "French",
+            "Bengali",
+            "Dari",
+            "Indonesian",
+            "Malay",
+            "Pashto",
+            "Farsi",
+            "Somali",
+            "Swahili",
+            "Turkish",
+            "Hindi",
+            "Tamil",
+            "Russian",
+            "Uzbek",
+            "Azerbaijani",
+            "Gujarati",
+            "Kazakh",
+            "Spanish",
+            "Bosnian",
+            "Malayalam",
+            "Persian",
+            "German",
+            "Kurdish",
+        ),
+        strict=True,
+    )
+)
 
 
 def frame(command: int, *data: int) -> bytes:

@@ -124,7 +124,9 @@ class LampCoordinator(DataUpdateCoordinator):
                     p.frame(p.SET_TRANSLATION, translation), optional=True
                 )
                 if response != expected:
-                    raise HomeAssistantError("The lamp did not confirm the selected translation")
+                    raise HomeAssistantError(
+                        "The lamp did not confirm the selected translation"
+                    )
             self.translation = translation
         self.async_update_listeners()
 

@@ -10,6 +10,7 @@ from homeassistant.exceptions import HomeAssistantError
 
 from . import protocol as p
 
+
 class Session:
     def __init__(self, send, is_connected=None, on_notification=None):
         self.send = send
@@ -24,11 +25,6 @@ class Session:
         return not self._disconnected and (
             self._is_connected is None or self._is_connected()
         )
-
-    def disconnect(self):
-        self._disconnected = True
-        if self.pending and not self.pending[1].done():
-            self.pending[1].set_exception(HomeAssistantError("The lamp disconnected"))
 
     def receive(self, _sender, data):
         # The translation catalog can span multiple notifications. Its trailer

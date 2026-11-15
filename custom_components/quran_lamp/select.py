@@ -105,7 +105,9 @@ class TranslationSelect(PlaybackSelect):
         )
 
     async def async_select_option(self, option):
-        await self.coordinator.async_set_translation(self.coordinator.translations[option])
+        await self.coordinator.async_set_translation(
+            self.coordinator.translations[option]
+        )
 
 
 class AzanSound(CoordinatorEntity, SelectEntity):

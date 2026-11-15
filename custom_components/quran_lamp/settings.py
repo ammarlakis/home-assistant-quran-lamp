@@ -67,22 +67,23 @@ class LampSettings(DataUpdateCoordinator):
             hass, 1, f"quran_lamp.{entry.entry_id}.alarms"
         )
         self._saved_mask = PRAYER_MASK
+        # Keep the existing storage key so saved timestamps survive upgrades.
         self._sync_store = Store[dict[str, str]](
             hass, 1, f"quran_lamp.{entry.entry_id}.mawaqit_sync"
         )
-        self.last_mawaqit_sync: datetime | None = None
+        self.last_sync: datetime | None = None
 
     async def async_load_preferences(self):
         if (data := await self._store.async_load()) is not None:
             self._saved_mask = data["mask"] & PRAYER_MASK
 
         if (data := await self._sync_store.async_load()) is not None:
-            self.last_mawaqit_sync = dt.parse_datetime(data["completed_at"])
+            self.last_sync = dt.parse_datetime(data["completed_at"])
 
-    async def async_record_mawaqit_sync(self, schedule):
+    async def async_record_sync(self, schedule):
         completed_at = dt.utcnow()
         await self._sync_store.async_save({"completed_at": completed_at.isoformat()})
-        self.last_mawaqit_sync = completed_at
+        self.last_sync = completed_at
         self.async_set_updated_data({**(self.data or {}), "schedule": schedule})
 
     async def _save_mask(self, mask):

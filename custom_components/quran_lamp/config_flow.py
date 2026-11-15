@@ -1,4 +1,4 @@
-"""Pair a lamp and optionally choose MAWAQIT sensors."""
+"""Pair a lamp and configure prayer time sensors."""
 
 import asyncio
 import logging
@@ -148,7 +148,9 @@ class QuranLampConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         break
                     except HomeAssistantError as err:
                         _LOGGER.debug(
-                            "Lamp setup connection attempt %s failed: %s", attempt + 1, err
+                            "Lamp setup connection attempt %s failed: %s",
+                            attempt + 1,
+                            err,
                         )
                 else:
                     return "cannot_connect"

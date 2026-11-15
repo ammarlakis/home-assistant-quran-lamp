@@ -46,7 +46,9 @@ class Ayah(CoordinatorEntity, NumberEntity):
 
     async def async_set_native_value(self, value):
         if int(value) != value or not 1 <= value <= self.native_max_value:
-            raise HomeAssistantError(f"Choose a whole ayah from 1 to {self.native_max_value}")
+            raise HomeAssistantError(
+                f"Choose a whole ayah from 1 to {self.native_max_value}"
+            )
         self.coordinator.start_ayah = int(value)
         self.coordinator.recitation_pending = True
         self.coordinator.async_update_listeners()

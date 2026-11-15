@@ -89,7 +89,7 @@ def start_sync(hass, entry, lamp, settings):
         if key != last_synced:
             try:
                 schedule = await sync_schedule(lamp, key[1])
-                await settings.async_record_mawaqit_sync(schedule)
+                await settings.async_record_sync(schedule)
             except (HomeAssistantError, OSError) as err:
                 _LOGGER.warning(
                     "Could not sync prayer times for %s: %s", entry.title, err

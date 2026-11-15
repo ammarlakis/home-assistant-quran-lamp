@@ -19,7 +19,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     async_add_entities(
         [StoredPrayerTime(coordinator, prayer) for prayer in PRAYERS]
-        + [LastMawaqitSync(coordinator)]
+        + [LastSync(coordinator)]
     )
 
 
@@ -41,7 +41,7 @@ class StoredPrayerTime(CoordinatorEntity, SensorEntity):
         return (self.coordinator.data or {}).get("schedule", {}).get(self._prayer)
 
 
-class LastMawaqitSync(CoordinatorEntity, SensorEntity):
+class LastSync(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
     _attr_entity_category = EntityCategory.DIAGNOSTIC
     _attr_device_class = SensorDeviceClass.TIMESTAMP
@@ -49,6 +49,7 @@ class LastMawaqitSync(CoordinatorEntity, SensorEntity):
 
     def __init__(self, lamp_coordinator):
         super().__init__(lamp_coordinator.settings)
+        # Preserve the published entity identifier across upgrades.
         self._attr_unique_id = f"{lamp_coordinator.lamp.address}_last_mawaqit_sync"
         self._attr_device_info = lamp_coordinator.device_info
 
@@ -59,4 +60,4 @@ class LastMawaqitSync(CoordinatorEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return self.coordinator.last_mawaqit_sync
+        return self.coordinator.last_sync

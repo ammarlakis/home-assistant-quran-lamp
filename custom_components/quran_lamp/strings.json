@@ -53,7 +53,7 @@
   "options": {
     "step": {
       "init": {
-        "title": "MAWAQIT prayer times",
+        "title": "Prayer time synchronization",
         "description": "Select the prayer sensors you want to sync. Leave a field blank to keep the time currently stored on the lamp. Use the Built-in azan switch on the device page to enable or mute the five prayer alarms.",
         "data": {
           "sync_prayer_times": "Synchronize prayer times",

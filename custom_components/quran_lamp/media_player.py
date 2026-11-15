@@ -3,7 +3,6 @@
 import asyncio
 
 import voluptuous as vol
-
 from homeassistant.components.media_player import (
     BrowseMedia,
     MediaPlayerEntity,
@@ -32,7 +31,9 @@ def register_play_recitation(hass):
         schema={
             vol.Required("surah"): vol.All(vol.Coerce(int), vol.Range(min=1, max=114)),
             vol.Optional("reciter"): cv.string,
-            vol.Optional("volume"): vol.All(vol.Coerce(float), vol.Range(min=0, max=100)),
+            vol.Optional("volume"): vol.All(
+                vol.Coerce(float), vol.Range(min=0, max=100)
+            ),
         },
     )
 
@@ -105,7 +106,9 @@ class QuranPlayer(CoordinatorEntity, MediaPlayerEntity):
             if status not in (b"\x00", b"\x01", b"\x02", b"\x03"):
                 raise HomeAssistantError("The lamp reported an unknown playback state")
             if playing and status == b"\x00":
-                status = await self._wake_recitation(session, self._resume_packet(), status)
+                status = await self._wake_recitation(
+                    session, self._resume_packet(), status
+                )
             elif (status in (b"\x01", b"\x03")) != playing:
                 await session.write(p.frame(p.PLAY_PAUSE))
                 expected = (b"\x01", b"\x03") if playing else (b"\x00", b"\x02")
@@ -116,8 +119,12 @@ class QuranPlayer(CoordinatorEntity, MediaPlayerEntity):
                     await asyncio.sleep(0.25)
                 else:
                     if not playing or status not in (b"\x00", b"\x02"):
-                        raise HomeAssistantError("The lamp did not change its playback state")
-                    status = await self._wake_recitation(session, self._resume_packet(), status)
+                        raise HomeAssistantError(
+                            "The lamp did not change its playback state"
+                        )
+                    status = await self._wake_recitation(
+                        session, self._resume_packet(), status
+                    )
             self.coordinator.async_set_updated_data(
                 {**self.coordinator.data, "play": status[0]}
             )
@@ -129,7 +136,9 @@ class QuranPlayer(CoordinatorEntity, MediaPlayerEntity):
             ayah = coordinator.start_ayah
             reciter = coordinator.selected_reciter
             if surah is not None:
-                await self._play_packet(p.surah(surah, ayah), surah=True, reciter=reciter)
+                await self._play_packet(
+                    p.surah(surah, ayah), surah=True, reciter=reciter
+                )
             else:
                 if reciter is not None:
                     await self.async_play_media(MediaType.MUSIC, f"reciter:{reciter}")
