@@ -70,3 +70,18 @@ again. Light tests confirm command acknowledgments, not physical light readback.
 Available through a custom repository; default HACS catalog inclusion is not
 required. Report issues with your lamp model, Home Assistant version, transport
 type and redacted logs. Do not include account credentials or Bluetooth keys.
+
+## Releases and upgrades
+
+Marketplace owns the files after installation. Upgrade from its Quran Lamp page
+and restart Home Assistant when prompted. Existing device entries, entity IDs,
+prayer sources and automations are retained. Do not remove the device entry to
+perform an upgrade.
+
+If an update fails, select the previous release in Marketplace and download it
+again, then restart Home Assistant. Keep configuration backups separately: a
+package downgrade restores code, not configuration backups.
+
+Maintainers build `dist/quran_lamp.zip` with `python scripts/package.py`. The ZIP
+contains the contents of `custom_components/quran_lamp` at its root. Its manifest
+version must match the release tag without the leading `v`.

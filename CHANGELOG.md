@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- Document Marketplace upgrades and rollback while preserving existing device entries.
+- Document reproducible release packaging for maintainers.
+- No device protocol or entity identifier changes.
+
 ## 0.2.0
 
 - First standalone HACS / Marketplace release.
