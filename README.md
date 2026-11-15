@@ -7,7 +7,22 @@ local adapter or a compatible proxy supporting active GATT connections.
 The installed device-specific USB relay has been replaced by this transport.
 The generic Bumble HA Proxy is one compatible transport option.
 
-## Installation
+## Installation through HACS / Marketplace
+
+Requires Home Assistant 2026.11 or newer and an adapter/proxy supporting active
+Bluetooth GATT connections. A specific proxy implementation is not required.
+
+1. Open Marketplace (or HACS) and its custom repositories menu.
+2. Add `https://github.com/ammarlakis/home-assistant-quran-lamp` as an Integration.
+3. Download Quran Lamp and restart Home Assistant.
+4. Open Settings → Devices & services → Add integration → Quran Lamp.
+
+For an existing installation, keep its device entry. Replace any manually
+installed files or infrastructure mounts before downloading through Marketplace.
+Keep a backup of your configuration. Do not delete the integration entry or entity
+registry: their existing identifiers are reused by the released integration.
+
+## Manual installation
 
 Copy the complete `custom_components/quran_lamp` directory into your Home Assistant
 configuration's `custom_components` directory, then restart Home Assistant.
@@ -52,5 +67,6 @@ playback. After an integration reload, the dropdown can show that saved language
 even if playback was Arabic-only. Selecting Off applies the Arabic-only sequence
 again. Light tests confirm command acknowledgments, not physical light readback.
 
-The source is kept locally while validation is completed. It is not yet a
-published HACS repository.
+Available through a custom repository; default HACS catalog inclusion is not
+required. Report issues with your lamp model, Home Assistant version, transport
+type and redacted logs. Do not include account credentials or Bluetooth keys.

@@ -1,0 +1,70 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Choose your Quran lamp",
+        "description": "Select a nearby lamp or enter its Bluetooth address manually.",
+        "data": {
+          "address": "Quran lamp"
+        }
+      },
+      "no_lamps": {
+        "title": "No Quran lamps found",
+        "description": "Power on the lamp, keep it near the Bluetooth adapter, and close the Koran Prayer app. Then try again.",
+        "menu_options": {
+          "retry": "Look again",
+          "manual": "Enter a Bluetooth address"
+        }
+      },
+      "no_new_lamps": {
+        "title": "No new Quran lamps found",
+        "description": "The lamps found are already configured. Power on the lamp you want to add and select Look again.",
+        "menu_options": {
+          "retry": "Look again",
+          "manual": "Enter a Bluetooth address"
+        }
+      },
+      "confirm": {
+        "title": "Connect to the Quran lamp",
+        "description": "Home Assistant will check the lamp at {address}. Keep the lamp powered and close the Koran Prayer app before connecting.",
+        "data": {
+          "name": "Lamp name"
+        }
+      },
+      "manual": {
+        "title": "Add a Quran lamp by address",
+        "description": "Enter the lamp’s Bluetooth MAC address. Keep the lamp powered and close the Koran Prayer app before connecting.",
+        "data": {
+          "address": "Bluetooth MAC address",
+          "name": "Lamp name"
+        }
+      }
+    },
+    "error": {
+      "invalid_address": "Enter a Bluetooth MAC address (AA:BB:CC:DD:EE:FF).",
+      "cannot_connect": "Could not connect. Check that the lamp is powered, within Bluetooth range, and disconnected from the Koran Prayer app, then try again.",
+      "unsupported_model": "The device at this address did not identify itself as a supported SQ953 lamp."
+    },
+    "abort": {
+      "already_configured": "This Quran lamp is already configured.",
+      "unsupported_model": "The connected lamp does not identify itself as SQ953."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "MAWAQIT prayer times",
+        "description": "Select the prayer sensors you want to sync. Leave a field blank to keep the time currently stored on the lamp. Use the Built-in azan switch on the device page to enable or mute the five prayer alarms.",
+        "data": {
+          "sync_prayer_times": "Synchronize prayer times",
+          "fajr": "Fajr",
+          "sunrise": "Sunrise (Shuruq)",
+          "dhuhr": "Dhuhr",
+          "asr": "Asr",
+          "maghrib": "Maghrib",
+          "isha": "Isha"
+        }
+      }
+    }
+  }
+}
